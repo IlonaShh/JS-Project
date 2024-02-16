@@ -8,6 +8,12 @@ let parsedCollisions;
 let collisionBlocks;
 let background;
 let doors;
+let myAudio = document.querySelector('#audio');
+myAudio.volume = 0.5
+
+document.addEventListener('click', function() {
+    myAudio.play();
+});
 
 const player = new Player({
     imageSrc: "./img/king/idle.png",
@@ -59,6 +65,8 @@ const player = new Player({
                     },
                 });
                 handleDoorCollision();
+                const doorSound = document.getElementById("doorSound");
+                doorSound.play();
             },
         },
     },

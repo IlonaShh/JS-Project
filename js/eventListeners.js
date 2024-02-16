@@ -1,3 +1,4 @@
+const jumpSound = new Audio('audio/jump.mp3');
 let enteringDoor = false;
 
 window.addEventListener("keydown", (event) => {
@@ -25,6 +26,7 @@ window.addEventListener("keydown", (event) => {
                 }
             }
             if (player.velocity.y === 0) player.velocity.y = -25;
+            jumpSound.play();
             break;
         case "a":
             keys.a.pressed = true;
