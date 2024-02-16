@@ -136,6 +136,17 @@ let levels = {
                     loop: false,
                     autoplay: false,
                 }),
+                new Sprite({
+                    position: {
+                        x: 150,
+                        y: 77, 
+                    },
+                    imageSrc: "./img/doorOpen.png",
+                    frameRate: 5,
+                    frameBuffer: 5,
+                    loop: false,
+                    autoplay: false,
+                }),
             ];
         },
     },
@@ -160,8 +171,19 @@ let levels = {
             doors = [
                 new Sprite({
                     position: {
-                        x: 176.0,
-                        y: 335,
+                        x: 177,
+                        y: 336,
+                    },
+                    imageSrc: "./img/doorOpen.png",
+                    frameRate: 5,
+                    frameBuffer: 5,
+                    loop: false,
+                    autoplay: false,
+                }),
+                new Sprite({
+                    position: {
+                        x: 780,
+                        y: 145, 
                     },
                     imageSrc: "./img/doorOpen.png",
                     frameRate: 5,
