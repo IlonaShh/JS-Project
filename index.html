@@ -3,14 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game</title>
+    <title>Score System</title>
     <style>
         body {
             background: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        canvas {
+            display: block;
+            margin: 0 auto;
+            border: 2px solid white;
+        }
+        #scoreContainer {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 20px;
         }
     </style>
 </head>
 <body>
+    <div id="scoreContainer">Score: <span id="scoreValue">0</span></div>
     <canvas></canvas>
   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"
@@ -20,9 +34,10 @@
     <script src="js/utils.js"></script>
     <script src="js/data/collisions.js"></script>
     <script src="js/classes/CollisionBlock.js"></script>
-    <script src="js/classes/Sprite.js"></script>
-    <script src="js/classes/Player.js"></script>
+    <script src="js/classes/sprite.js"></script>
+    <script src="js/classes/player.js"></script>
     <script src="js/eventListeners.js"></script>
     <script src="index.js"></script>
 </body>
 </html>
+
