@@ -8,10 +8,13 @@ let parsedCollisions;
 let collisionBlocks;
 let background;
 let doors;
-let myAudio = document.querySelector('#audio');
-myAudio.volume = 0.5
+let coins = [];
+let myAudio = document.querySelector("#audio");
+myAudio.volume = 0.5;
+let coinSound = document.getElementById("coinSound");
+coinSound.volume = 0.2;
 
-document.addEventListener('click', function() {
+document.addEventListener("click", function () {
     myAudio.play();
 });
 
@@ -103,6 +106,30 @@ let levels = {
                     autoplay: false,
                 }),
             ];
+
+            coins = [
+                new Coin({
+                    position: { x: 221, y: 230 },
+                    imageSrc: "./img/pic1.png",
+                    frameRate: 1,
+                    loop: true,
+                    value: 10,
+                }),
+                new Coin({
+                    position: { x: 341, y: 310 },
+                    imageSrc: "./img/pic1.png",
+                    frameRate: 1,
+                    loop: true,
+                    value: 10,
+                }),
+                new Coin({
+                    position: { x: 475, y: 230 },
+                    imageSrc: "./img/pic1.png",
+                    frameRate: 1,
+                    loop: true,
+                    value: 10,
+                }),
+            ];
         },
     },
     2: {
@@ -139,13 +166,37 @@ let levels = {
                 new Sprite({
                     position: {
                         x: 150,
-                        y: 77, 
+                        y: 77,
                     },
                     imageSrc: "./img/doorOpen.png",
                     frameRate: 5,
                     frameBuffer: 5,
                     loop: false,
                     autoplay: false,
+                }),
+            ];
+
+            coins = [
+                new Coin({
+                    position: { x: 170, y: 420 },
+                    imageSrc: "./img/pic2.png",
+                    frameRate: 1,
+                    loop: true,
+                    value: 10,
+                }),
+                new Coin({
+                    position: { x: 480, y: 420 },
+                    imageSrc: "./img/pic2.png",
+                    frameRate: 1,
+                    loop: true,
+                    value: 10,
+                }),
+                new Coin({
+                    position: { x: 295, y: 200 },
+                    imageSrc: "./img/pic2.png",
+                    frameRate: 1,
+                    loop: true,
+                    value: 10,
                 }),
             ];
         },
@@ -183,13 +234,44 @@ let levels = {
                 new Sprite({
                     position: {
                         x: 780,
-                        y: 145, 
+                        y: 145,
                     },
                     imageSrc: "./img/doorOpen.png",
                     frameRate: 5,
                     frameBuffer: 5,
                     loop: false,
                     autoplay: false,
+                }),
+            ];
+
+            coins = [
+                new Coin({
+                    position: { x: 478, y: 165 },
+                    imageSrc: "./img/pic3.png",
+                    frameRate: 1,
+                    loop: true,
+                    value: 10,
+                }),
+                new Coin({
+                    position: { x: 341, y: 350 },
+                    imageSrc: "./img/pic3.png",
+                    frameRate: 1,
+                    loop: true,
+                    value: 10,
+                }),
+                new Coin({
+                    position: { x: 700, y: 350 },
+                    imageSrc: "./img/pic3.png",
+                    frameRate: 1,
+                    loop: true,
+                    value: 10,
+                }),
+                new Coin({
+                    position: { x: 205, y: 165 },
+                    imageSrc: "./img/pic3.png",
+                    frameRate: 1,
+                    loop: true,
+                    value: 10,
                 }),
             ];
         },
@@ -213,6 +295,7 @@ const overlay = {
 };
 
 let score = 0;
+
 function addScore(points) {
     score += points;
     updateScoreDisplay();
@@ -222,6 +305,24 @@ function addScore(points) {
 function handleDoorCollision() {
     addScore(10);
     console.log("Entered the door!");
+}
+
+function collectCoins() {
+    for (let i = coins.length - 1; i >= 0; i--) {
+        const coin = coins[i];
+        const distanceX = Math.abs(player.position.x - coin.position.x);
+        const distanceY = Math.abs(player.position.y - coin.position.y);
+        const distance = Math.sqrt(distanceX ** 2 + distanceY ** 2);
+
+        if (!coin.collected && distance < 50) {
+            player.collectCoin(coin);
+            coins.splice(i, 1);
+            addScore(5);
+            coinSound.play();
+            myAudio.volume = 0.5;
+            console.log("Collected a coin!");
+        }
+    }
 }
 
 function updateScoreDisplay() {
@@ -238,6 +339,12 @@ function animate() {
         door.draw();
     });
 
+    coins.forEach((coin) => {
+        coin.draw();
+    });
+
+    collectCoins();
+
     player.handleInput(keys);
     player.draw();
     player.update();
@@ -251,3 +358,4 @@ function animate() {
 
 levels[level].init();
 animate();
+
